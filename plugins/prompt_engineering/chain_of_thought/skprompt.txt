@@ -1,0 +1,7 @@
+{{$problem}}
+
+Let's think step by step.
+
+{{$input}}
+
+Therefore, the answer is…

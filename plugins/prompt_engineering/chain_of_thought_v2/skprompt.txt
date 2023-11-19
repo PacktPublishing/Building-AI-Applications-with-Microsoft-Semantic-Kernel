@@ -1,0 +1,10 @@
+{{$problem}}
+
+Let's think step by step.
+
+{{$input}}
+
+Using arabic numerals only, the answer is…
+
+Provide just the numeric answer. If the answer is "Your sister is 67 years old", then just write 67.
+

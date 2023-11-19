@@ -1,0 +1,14 @@
+I am traveling to {{$city}} and staying {{$n_days}} days.
+I like {{$likes}}.
+I dislike {{$dislikes}}.
+I am traveling by myself.
+
+Create an itinerary of up to {{$n_attractions}} must-see attractions for me to visit.
+
+The attractions should be listed in the following format:
+
+- Attraction name: [name]
+- What is the best thing to see there: [one sentence description description]
+
+Your whole answer should be less than 300 words.
+

@@ -1,0 +1,21 @@
+{
+    "schema": 1,
+    "type": "completion",
+    "description": "Creates a list of three must-see attractions for someone traveling to a city",
+    "default_services": ["gpt35"],
+    "completion": {
+        "temperature": 0.8,
+        "number_of_responses": 1,
+        "top_p": 1,
+        "max_tokens": 2000,
+        "presence_penalty": 0.0,
+       "frequency_penalty": 0.0
+       },
+       "input": {
+     "parameters": [{
+      "name": "city",
+      "description": "The city the person wants to travel to",
+      "defaultValue": ""
+     }]
+    }
+}

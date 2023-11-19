@@ -1,0 +1,16 @@
+I am traveling to {{$city}} and staying only 24 hours.
+I am afraid of heights. 
+I will be in downtown.
+I like movies and TV shows a lot.
+I am traveling by myself.
+I will get around using public transportation or Uber.
+I will be there on a Saturday.
+Create an itinerary of three attractions for me to visit.
+
+The attractions should be listed in the following format:
+
+- Attraction name: [name]
+- What is the best thing to see there: [one sentence description description]
+
+Your whole answer should be less than 300 words.
+

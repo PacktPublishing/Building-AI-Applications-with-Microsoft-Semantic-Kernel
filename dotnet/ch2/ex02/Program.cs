@@ -1,6 +1,4 @@
 ﻿using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.Orchestration;
-using Microsoft.SemanticKernel.SemanticFunctions;
 
 var builder = new KernelBuilder();
 var (apiKey, orgId) = Settings.LoadFromFile();
