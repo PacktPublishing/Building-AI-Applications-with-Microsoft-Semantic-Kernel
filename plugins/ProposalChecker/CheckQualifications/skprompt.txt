@@ -1,0 +1,9 @@
+These are the biographies of the project team:
+{{$input}}
+
+We require at least one of the project team members to have a Ph.D. and at least one to have experience in the medical sciences.
+
+If the project team does not meet these requirements, say "No".
+If the project team meets these requirements, say "Yes"
+
+Your response should be a single word, either "Yes" or "No".

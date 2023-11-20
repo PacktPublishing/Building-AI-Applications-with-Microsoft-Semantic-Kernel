@@ -1,0 +1,8 @@
+The project team provided this experience:
+{{$input}}
+
+Do they have enough experience to conduct a massive vaccination campaign in a new country?
+
+If they have had a successful experience in Atlantis or another large country, respond "Yes", otherwise respond "No".
+
+Your response should be a single word, either "Yes" or "No".

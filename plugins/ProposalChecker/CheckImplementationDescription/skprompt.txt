@@ -1,0 +1,10 @@
+The project team provided this implementation description:
+{{$input}}
+
+If there are no dates listed, say No.
+
+If the dates are outside of the 2024-2025 range, say No.
+
+If there are dates between 2024 and 2025, say Yes.
+
+Your response should be a single word, either "Yes" or "No".
