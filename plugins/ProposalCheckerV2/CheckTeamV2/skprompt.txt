@@ -1,0 +1,16 @@
+<TEAM>
+ {{$input}}
+</TEAM>
+
+Check the contents of the text between the tags <TEAM> and </TEAM>.
+
+If the first line starts with "Error", stop here and respond with the contents of the text between the tags <TEAM> and </TEAM>, including the "Error:" text.
+
+Otherwise, the first line of the text between <TEAM> and </TEAM> will contain the FolderPath. 
+The other lines will contain the team's experience.
+
+We require the team's experience to have at least one person with a PhD and at least one person with a Medical Degree.
+Think carefully about the team's experience.
+
+If the team fulfills all the requirements, reply with the contents of the FolderPath.
+Otherwise reply with "Error: Team does not meet requirements."

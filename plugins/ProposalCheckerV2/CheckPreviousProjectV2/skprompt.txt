@@ -1,0 +1,15 @@
+<EXPERIENCE>
+ {{$input}}
+</EXPERIENCE>
+
+Check the contents of the text between the tags <EXPERIENCE> and </EXPERIENCE>.
+
+If the first line starts with "Error", stop here respond with the contents of the text between the tags <EXPERIENCE> and </EXPERIENCE>.
+
+Otherwise, the text between the tags <EXPERIENCE> and </EXPERIENCE> will contain a line starting with FolderPath and the rest of the field will contain a description of the teams experience.
+
+Ignoring the FolderPath line, does the description of the teams experience 
+indicate they have enough experience to conduct a massive vaccination campaign in a new country?
+
+If they have had a successful experience in Atlantis or another large country, respond with the FolderPath line.
+Otherwise, respond with "Error: Not enough experience."
