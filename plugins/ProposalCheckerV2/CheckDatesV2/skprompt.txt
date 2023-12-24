@@ -4,7 +4,7 @@
 
 Check the contents of the text between the tags <IMPLEMENTATION> and </IMPLEMENTATION>.
 
-If the first line starts with "Error", stop here and respond with the contents of the text between the tags <IMPLEMENTATION> and </IMPLEMENTATION>.
+If the contents are an error message, respond with the error message.
 
 Otherwise, the text between the tags <IMPLEMENTATION> and </IMPLEMENTATION> will contain 
 a line starting with FolderPath and the rest of the field will contain 
@@ -17,5 +17,5 @@ If there are no dates listed, say "Error: No dates listed" .
 
 If the dates are outside of the 2024-2025 range, say "Error: dates out of range".
 
-If there are dates between 2024 and 2025, respond with the FolderPath line..
+If there are dates between 2024 and 2025, respond only with the contents of the FolderPath field, nothing more.
 

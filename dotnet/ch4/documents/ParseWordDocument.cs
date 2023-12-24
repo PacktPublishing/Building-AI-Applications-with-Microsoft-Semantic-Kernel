@@ -9,27 +9,39 @@ public class ParseWordDocument
     [KernelFunction, Description("Extracts the text under the Team heading in the Word document")]
     public static string ExtractTeam(string folderPath)
     {
-        return ExtractTextUnderHeading(folderPath, "Team");
+        if (folderPath.Contains("Error"))
+        {
+            return folderPath;
+        }        
+        string text = ExtractTextUnderHeading(folderPath, "Team");
+        return $"FolderPath: {folderPath}\n"  + text;
+
     }
 
     [KernelFunction, Description("Extracts the text under the Experience heading in the Word document")]
     public static string ExtractExperience(string folderPath)
     {
-        return ExtractTextUnderHeading(folderPath, "Experience");
+        if (folderPath.Contains("Error"))
+        {
+            return folderPath;
+        }            
+        string text = ExtractTextUnderHeading(folderPath, "Experience");
+        return $"FolderPath: {folderPath}\n"  + text;
     }
 
     [KernelFunction, Description("Extracts the text under the Implementation heading in the Word document")]
     public static string ExtractImplementation(string folderPath)
     {
-        return ExtractTextUnderHeading(folderPath, "Implementation");
+        if (folderPath.Contains("Error"))
+        {
+            return folderPath;
+        }            
+        string text = ExtractTextUnderHeading(folderPath, "Implementation");
+        return $"FolderPath: {folderPath}\n"  + text;
     }
 
     private static string ExtractTextUnderHeading(string folderPath, string heading)
     {
-        if (folderPath.Contains("Error"))
-        {
-            return folderPath;
-        }
         if (folderPath.StartsWith("FolderPath:"))
         {
             folderPath = folderPath.Substring("FolderPath: ".Length);
@@ -74,7 +86,7 @@ public class ParseWordDocument
                 return $"Error: Missing section {heading}";
             }
 
-            return $"FolderPath: {folderPath}\n"  + extractedText.Trim();
+            return extractedText.Trim();
         }
     }
 }

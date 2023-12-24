@@ -3,14 +3,16 @@
 </TEAM>
 
 Check the contents of the text between the tags <TEAM> and </TEAM>.
-
-If the first line starts with "Error", stop here and respond with the contents of the text between the tags <TEAM> and </TEAM>, including the "Error:" text.
+If the contents are an error message, respond with the error message.
 
 Otherwise, the first line of the text between <TEAM> and </TEAM> will contain the FolderPath. 
 The other lines will contain the team's experience.
 
-We require the team's experience to have at least one person with a PhD and at least one person with a Medical Degree.
+We require the team's experience to have at least one person with a Ph.D. and at least one person with a degree in the medical sciences.
+
 Think carefully about the team's experience.
 
-If the team fulfills all the requirements, reply with the contents of the FolderPath.
-Otherwise reply with "Error: Team does not meet requirements."
+If the team fulfills the requirements, your answer should be the contents of the FolderPath field, nothing more.
+
+If the team does not fulfill the requirements, reply with "Error: Team does not meet requirements."
+
