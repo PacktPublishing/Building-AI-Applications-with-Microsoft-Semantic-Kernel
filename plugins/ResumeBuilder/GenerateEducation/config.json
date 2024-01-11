@@ -1,8 +1,8 @@
 {
     "schema": 1,
     "type": "completion",
-    "description": "Generates a knock-knock joke based on user input",
-    "default_services": ["gpt35", "gpt4"],
+    "description": "Given a joke, explain why it is funny",
+    "default_services": ["gpt4"],
     "completion": {
         "temperature": 0.8,
         "number_of_responses": 1,
@@ -14,7 +14,7 @@
        "input": {
      "parameters": [{
       "name": "input",
-      "description": "The topic that the joke should be written about",
+      "description": "The joke that we want explained",
       "defaultValue": ""
      }]
     }

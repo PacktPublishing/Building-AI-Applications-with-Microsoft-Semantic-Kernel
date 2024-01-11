@@ -1,0 +1,6 @@
+Given the request below, suggest exacly one movie that you think the requestor is going to like. If the request is already a movie title, just return that movie title.
+
+Respond only with the title of the movie, nothing else. 
+
+Request:
+{{ $input }}
