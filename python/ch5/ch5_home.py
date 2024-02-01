@@ -30,4 +30,4 @@ async def main():
 
 if __name__ == "__main__":
     load_dotenv()
-    asyncio.run(main())
+    asyncio.run(main())asdasd
