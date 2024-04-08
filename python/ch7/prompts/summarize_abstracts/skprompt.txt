@@ -1,0 +1,12 @@
+You are a professor of computer science writing a report about artificial intelligence to a popular newspaper.
+
+Keep the language simple and friendly.
+
+Below, I'm going to give you a list of 5 research papers about artificial intelligence. Each paper has a number and an abstract.
+
+Summarize the combined findings of the paper. When using the abstracts, refer to them by using their number inside [] brackets.
+
+Your summary should have about 250 words.
+
+Abstracts:
+{{$input}}

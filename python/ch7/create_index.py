@@ -1,4 +1,3 @@
-import os
 from dotenv import load_dotenv
 import os  
 from azure.core.credentials import AzureKeyCredential  
@@ -20,10 +19,10 @@ from azure.search.documents.indexes.models import (
 
 def main() -> None:
 
-    index_name = "arxiv-papers-index"
-    service_name = "ai-search-d-day"
+    index_name = os.getenv("ARXIV_SEARCH_INDEX_NAME")
+    service_name = os.getenv("ARXIV_SEARCH_SERVICE_NAME")
     service_endpoint = f"https://{service_name}.search.windows.net/"
-    admin_key = os.getenv("D_DAY_ADMIN_KEY")
+    admin_key = os.getenv("ARXIV_SEARCH_ADMIN_KEY")
     credential = AzureKeyCredential(admin_key)
 
     # Create a search index
@@ -38,7 +37,7 @@ def main() -> None:
         SearchableField(name="title", type=SearchFieldDataType.String),
         SearchableField(name="abstract", type=SearchFieldDataType.String),
         SearchField(name="abstract_vector", type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
-                    searchable=True, vector_search_dimensions=3072, vector_search_profile_name="myHnswProfile"),
+                    searchable=True, vector_search_dimensions=1536, vector_search_profile_name="myHnswProfile"),
     ]
 
     # Configure the vector search configuration  
@@ -66,7 +65,7 @@ def main() -> None:
     # Create the search index with the semantic settings
     index = SearchIndex(name=index_name, fields=fields,
                         vector_search=vector_search)
-    result = index_client.create_or_update_index(index)
+    result = index_client.create_or_update_index(index, all)
     print(f' {result.name} created')
 
 if __name__ == '__main__':
