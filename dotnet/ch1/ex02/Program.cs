@@ -1,17 +1,16 @@
 ﻿using Microsoft.SemanticKernel;
-using Microsoft.SemanticKernel.SemanticFunctions;
-
-var builder = new KernelBuilder();
 
 var (apiKey, orgId) = Settings.LoadFromFile();
 
-builder.WithOpenAIChatCompletionService("gpt-3.5-turbo", apiKey, orgId, serviceId: "gpt3", setAsDefault: true);
-builder.WithOpenAIChatCompletionService("gpt-4", apiKey, orgId, serviceId: "gpt4", setAsDefault: false);
-
-IKernel kernel = builder.Build();
+Kernel kernel = Kernel.CreateBuilder()
+                        .AddOpenAIChatCompletion("gpt-3.5-turbo", apiKey, orgId, serviceId: "gpt3")
+                        .AddOpenAIChatCompletion("gpt-4", apiKey, orgId, serviceId: "gpt4")
+                        .Build();
 
 string prompt = "Finish the following knock-knock joke. Knock, knock. Who's there? {{$input}}, {{$input}} who?";
-var jokeFunction = kernel.CreateSemanticFunction(prompt, temperature: 0.8);
-var joke = await jokeFunction.InvokeAsync("Boo");
+KernelFunction jokeFunction = kernel.CreateFunctionFromPrompt(prompt);
+var arguments = new KernelArguments() { ["input"] = "Boo" };
+
+var joke = await kernel.InvokeAsync(jokeFunction, arguments);
 
 Console.WriteLine(joke);
