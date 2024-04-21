@@ -1,4 +1,7 @@
-﻿using Microsoft.SemanticKernel;
+﻿#pragma warning disable SKEXP0060
+
+using Microsoft.SemanticKernel;
+using Microsoft.SemanticKernel.Planning.Handlebars;
 
 var (apiKey, orgId) = Settings.LoadFromFile();
 
@@ -8,24 +11,18 @@ Kernel kernel = Kernel.CreateBuilder()
                         .Build();
 
 
-
-var showManagerPlugin = kernel.ImportPluginFromObject(new Plugins.ShowManager());
-
-var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), 
+var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(),
         "..", "..", "..", "plugins", "jokes");
 
-var jokesPlugin = kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "jokes");
+kernel.ImportPluginFromPromptDirectory(pluginsDirectory);
 
-var prompt = @"
-$theme = {{ShowManager.RandomTheme}}
+var goalFromUser = "Choose a random theme for a joke, generate a knock-knock joke about it and explain it"; 
 
-$joke = {{jokes.knock_knock_joke $theme}}
+var planner = new HandlebarsPlanner(new HandlebarsPlannerOptions() { AllowLoops = false });
+var plan = await planner.CreatePlanAsync(kernel, goalFromUser);
 
-Here's the joke: $joke
-";
+// Execute the plan
+var result = await plan.InvokeAsync(kernel);
 
-var f = kernel.CreateFunctionFromPrompt(prompt);
-
-var explanation = await kernel.InvokeAsync(f);
-
-Console.WriteLine(explanation);
+// Print the result to the console
+Console.WriteLine(result);

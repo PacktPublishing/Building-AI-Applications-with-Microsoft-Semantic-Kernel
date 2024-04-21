@@ -42,5 +42,4 @@ public static class Settings {
             return ("", "");
         }
     }
-
 }
