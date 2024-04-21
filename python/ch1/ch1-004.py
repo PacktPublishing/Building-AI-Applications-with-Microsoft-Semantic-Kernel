@@ -1,20 +1,36 @@
-from semantic_kernel.skill_definition import sk_function
 import random
-
+import asyncio
 import semantic_kernel as sk
-kernel = sk.Kernel()
-
-api_key, org_id = sk.openai_settings_from_dot_env()
-
+from semantic_kernel.utils.settings import openai_settings_from_dot_env
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
-gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id)
-gpt4 = OpenAIChatCompletion("gpt-4", api_key, org_id)
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
+from semantic_kernel.functions.kernel_arguments import KernelArguments
 
-kernel.add_chat_service("gpt35", gpt35)
-kernel.add_chat_service("gpt4", gpt4)
+async def main():
+    kernel = sk.Kernel()
+
+    api_key, org_id = openai_settings_from_dot_env()
+
+    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id, service_id = "gpt35")
+    gpt4 = OpenAIChatCompletion("gpt-4", api_key, org_id, service_id = "gpt4")
+
+    kernel.add_service(gpt35)
+    kernel.add_service(gpt4)
+
+    theme_plugin = kernel.add_plugin(ShowManager(), "ShowManager")
+    theme = await kernel.invoke(theme_plugin["random_theme"])
+
+    jokes_plugin = kernel.add_plugin(None, parent_directory="../../plugins", plugin_name="jokes")
+
+    knock_joke = await kernel.invoke(jokes_plugin["knock_knock_joke"], KernelArguments(input=theme))
+    print(knock_joke)
+
+    explanation = await kernel.invoke(jokes_plugin["explain_joke"], KernelArguments(input=knock_joke))
+    print(explanation)
+
 
 class ShowManager:
-    @sk_function(
+    @kernel_function(
         description="Randomly choose among a theme for a joke",
         name="random_theme"
     )
@@ -25,12 +41,5 @@ class ShowManager:
         theme = random.choice(themes)
         return theme
 
-theme_choice = kernel.import_skill(ShowManager())
-
-jokes_plugin = kernel.import_semantic_skill_from_directory("../../plugins", "jokes")
-
-knock = jokes_plugin["knock_knock_joke"]
-knock_joke = str(knock("Dishes"))
-print(knock_joke)
-explain_joke = jokes_plugin["explain_joke"]
-print (explain_joke(knock_joke))
+if __name__ == "__main__":
+    asyncio.run(main())

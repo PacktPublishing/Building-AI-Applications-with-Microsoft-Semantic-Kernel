@@ -1,20 +1,28 @@
-from semantic_kernel.skill_definition import sk_function
 import random
-
+import asyncio
 import semantic_kernel as sk
-kernel = sk.Kernel()
-
-api_key, org_id = sk.openai_settings_from_dot_env()
-
+from semantic_kernel.utils.settings import openai_settings_from_dot_env
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
-gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id)
-gpt4 = OpenAIChatCompletion("gpt-4", api_key, org_id)
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 
-kernel.add_chat_service("gpt35", gpt35)
-kernel.add_chat_service("gpt4", gpt4)
+async def main():
+    kernel = sk.Kernel()
+
+    api_key, org_id = openai_settings_from_dot_env()
+
+    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id, service_id = "gpt35")
+    gpt4 = OpenAIChatCompletion("gpt-4", api_key, org_id, service_id = "gpt4")
+
+    kernel.add_service(gpt35)
+    kernel.add_service(gpt4)
+
+    theme_choice = kernel.add_plugin(ShowManager(), "ShowManager")
+    response = await kernel.invoke(theme_choice["random_theme"])
+    print(response)
+
 
 class ShowManager:
-    @sk_function(
+    @kernel_function(
         description="Randomly choose among a theme for a joke",
         name="random_theme"
     )
@@ -25,5 +33,5 @@ class ShowManager:
         theme = random.choice(themes)
         return theme
 
-theme_choice = kernel.import_skill(ShowManager())
-print(theme_choice["random_theme"]())
+if __name__ == "__main__":
+    asyncio.run(main())
