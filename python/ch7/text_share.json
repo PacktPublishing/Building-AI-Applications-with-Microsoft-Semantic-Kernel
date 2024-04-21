@@ -1,0 +1,15 @@
+{
+    "author": "",
+    "lifecycleState": "PUBLISHED",
+    "specificContent": {
+        "com.linkedin.ugc.ShareContent": {
+            "shareCommentary": {
+                "text": ""
+            },
+            "shareMediaCategory": "NONE"
+        }
+    },
+    "visibility": {
+        "com.linkedin.ugc.MemberNetworkVisibility": "PUBLIC"
+    }
+}

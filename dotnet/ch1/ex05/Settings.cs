@@ -1,7 +1,7 @@
 using System.Text.Json;
 
 public static class Settings {    
-  public static (string apiKey, string orgId)
+  public static (string apiKey, string? orgId)
         LoadFromFile(string configFile = "config/settings.json")
     {
         if (!File.Exists(configFile))
@@ -21,7 +21,19 @@ public static class Settings {
             }
 
             string apiKey = config["apiKey"];
-            string orgId = config["orgId"];
+
+            
+            string? orgId;
+
+            // check whether orgId is in the file
+            if (!config.ContainsKey("orgId"))
+            {
+                orgId = null;
+            }
+            else
+            {
+                orgId = config["orgId"];
+            }
             return (apiKey, orgId);
         }
         catch (Exception e)
@@ -30,4 +42,5 @@ public static class Settings {
             return ("", "");
         }
     }
+
 }

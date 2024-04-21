@@ -1,23 +1,31 @@
 ﻿using Microsoft.SemanticKernel;
 
-var builder = new KernelBuilder();
 var (apiKey, orgId) = Settings.LoadFromFile();
 
-builder.WithOpenAIChatCompletionService("gpt-3.5-turbo", apiKey, orgId, serviceId: "gpt3", setAsDefault: true);
-builder.WithOpenAIChatCompletionService("gpt-4", apiKey, orgId, serviceId: "gpt4", setAsDefault: false);
+Kernel kernel = Kernel.CreateBuilder()
+        .AddOpenAIChatCompletion("gpt-3.5-turbo", apiKey, orgId, serviceId: "gpt3")
+        .AddOpenAIChatCompletion("gpt-4", apiKey, orgId, serviceId: "gpt4")
+                        .Build();
 
-IKernel kernel = builder.Build();
 
-var showManagerPlugin = kernel.ImportSkill(new Plugins.ShowManager());
+
+var showManagerPlugin = kernel.ImportPluginFromObject(new Plugins.ShowManager());
 
 var pluginsDirectory = Path.Combine(System.IO.Directory.GetCurrentDirectory(), 
-        "..", "..", "..", "plugins");
+        "..", "..", "..", "plugins", "jokes");
 
-var jokesPlugin = kernel.ImportSemanticSkillFromDirectory(pluginsDirectory, "jokes");
+var jokesPlugin = kernel.ImportPluginFromPromptDirectory(pluginsDirectory, "jokes");
 
-var explanation = await kernel.RunAsync(
-        showManagerPlugin["RandomTheme"], 
-        jokesPlugin["knock_knock_joke"],
-        jokesPlugin["explain_joke"]);
+var prompt = @"
+$theme = {{ShowManager.RandomTheme}}
+
+$joke = {{jokes.knock_knock_joke $theme}}
+
+Here's the joke: $joke
+";
+
+var f = kernel.CreateFunctionFromPrompt(prompt);
+
+var explanation = await kernel.InvokeAsync(f);
 
 Console.WriteLine(explanation);

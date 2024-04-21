@@ -1,12 +1,11 @@
 using System.ComponentModel;
-using System.Globalization;
-using Microsoft.SemanticKernel.SkillDefinition;
+using Microsoft.SemanticKernel;
 
 namespace Plugins;
 
 public class ShowManager
 {
-    [SKFunction, Description("Returns a random string from a list of strings")]
+    [KernelFunction, Description("Take the square root of a number")]
     public string RandomTheme()
     {
         var list = new List<string> { "boo", "dishes", "art", "needle", "tank", "police"};
