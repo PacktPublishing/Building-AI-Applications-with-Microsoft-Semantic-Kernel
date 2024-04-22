@@ -1,21 +1,46 @@
 {
     "schema": 1,
     "type": "completion",
-    "description": "Creates a list of three must-see attractions for someone traveling to a city",
-    "default_services": ["gpt35"],
-    "completion": {
-        "temperature": 0.8,
-        "number_of_responses": 1,
-        "top_p": 1,
-        "max_tokens": 2000,
-        "presence_penalty": 0.0,
-       "frequency_penalty": 0.0
-       },
-       "input": {
-     "parameters": [{
-      "name": "city",
-      "description": "The city the person wants to travel to",
-      "defaultValue": ""
-     }]
-    }
+    "description": "Creates a list of attractions for someone traveling to a city given their preferences",
+    "default_services": [
+        "gpt35"
+    ],
+    "execution_settings": {
+        "default": {
+            "temperature": 0.8,
+            "number_of_responses": 1,
+            "top_p": 1,
+            "max_tokens": 4000,
+            "presence_penalty": 0.0,
+            "frequency_penalty": 0.0
+        }
+    },
+    "input_variables": [
+        {
+            "name": "city",
+            "description": "The city the person wants to travel to",
+            "required": true
+        },
+        {
+            "name": "n_days",
+            "description": "The number of days the person will be in the city",
+            "required": true
+        },
+        {
+            "name": "likes",
+            "description": "The interests of the person traveling to the city",
+            "required": true
+        },
+        {
+            "name": "dislikes",
+            "description": "The dislikes of the person traveling to the city",
+            "required": true
+        },
+        {
+            "name": "n_attractions",
+            "description": "The number of attractions to recommend",
+            "required": true
+        }
+
+    ]
 }

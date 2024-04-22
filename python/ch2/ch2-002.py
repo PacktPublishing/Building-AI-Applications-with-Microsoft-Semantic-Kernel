@@ -1,27 +1,18 @@
-import random
 import asyncio
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
+from semantic_kernel.utils.settings import openai_settings_from_dot_env
 import semantic_kernel as sk
+from semantic_kernel.functions.kernel_arguments import KernelArguments
 
 async def main():
     kernel = sk.Kernel()
-    api_key, org_id = sk.openai_settings_from_dot_env()
-    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id)
+    api_key, org_id = openai_settings_from_dot_env()
+    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id, "gpt35")
 
-    kernel.add_chat_service("gpt35", gpt35)
-
-    prompts = kernel.import_semantic_skill_from_directory("../../plugins", "prompt_engineering")
-
-    attractions = prompts['attractions_single_variable_v2']
-
-    input_context=kernel.create_new_context()
-    input_context["city"] = "London"
+    kernel.add_service(gpt35)
     
-    response = await kernel.run_async(
-        attractions
-        , input_context=input_context
-    )
-
+    pe_plugin = kernel.add_plugin(None, parent_directory="../../plugins", plugin_name="prompt_engineering")
+    response = await kernel.invoke(pe_plugin["attractions_single_variable_v2"], KernelArguments(city="London"))
     print(response)
 
 

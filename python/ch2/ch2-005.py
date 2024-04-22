@@ -1,41 +1,32 @@
 import asyncio
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion
+from semantic_kernel.utils.settings import openai_settings_from_dot_env
 import semantic_kernel as sk
+from semantic_kernel.functions.kernel_arguments import KernelArguments
 
 async def main():
     kernel = sk.Kernel()
-    api_key, org_id = sk.openai_settings_from_dot_env()
-    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id)
+    api_key, org_id = openai_settings_from_dot_env()
+    gpt35 = OpenAIChatCompletion("gpt-3.5-turbo", api_key, org_id, "gpt35")
 
-    kernel.add_chat_service("gpt35", gpt35)
-
-    prompts = kernel.import_semantic_skill_from_directory("../../plugins", "prompt_engineering")
-
+    kernel.add_service(gpt35)
+    
     problem = """When I was 6 my sister was half my age. Now I'm 70. How old is my sister?"""
 
-    solve = prompts['solve_math_problem_v2']
+    pe_plugin = kernel.add_plugin(None, parent_directory="../../plugins", plugin_name="prompt_engineering")
+   
+    responses = []
 
-    reasoning = prompts['chain_of_thought']
+    for i in range(7):
+        solve_steps = await kernel.invoke(pe_plugin["solve_math_problem_v2"], KernelArguments(problem = problem))
+        response = await kernel.invoke(pe_plugin["chain_of_thought_v2"], KernelArguments(problem = problem, input = solve_steps))
+        responses.append(int(str(response)))
 
-    input_context=kernel.create_new_context()
-    input_context['problem'] = problem
+    print("Responses:")
+    print(responses)
 
-    steps = await kernel.run_async(
-        solve,
-        input_context=input_context
-    )
-
-    print(f"\n\nSteps: {str(steps)}\n\n")
-    input_context['input'] = str(steps)
-
-    response = await kernel.run_async(
-        reasoning,
-        input_context=input_context
-    )
-
-    print("Final answer:")
-    print(response)
-
+    final_answer = max(set(responses), key = responses.count)
+    print(f"Final answer: {final_answer}")
 
 if __name__ == "__main__":
     asyncio.run(main())
