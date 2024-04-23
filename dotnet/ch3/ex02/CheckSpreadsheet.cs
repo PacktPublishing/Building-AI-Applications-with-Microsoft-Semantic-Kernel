@@ -1,12 +1,11 @@
 using System.ComponentModel;
-using System.Globalization;
 using Microsoft.SemanticKernel;
 using OfficeOpenXml;
 
 namespace Plugins.ProposalChecker;
 public class CheckSpreadsheet
 {
-    [SKFunction, Description("Checks that the spreadsheet contains the correct tabs, 2024 and 2025")]
+    [KernelFunction, Description("Checks that the spreadsheet contains the correct tabs, 2024 and 2025")]
     public string CheckTabs([Description("The file path to the spreadsheet")] string filePath)
     {
         try
@@ -41,8 +40,8 @@ public class CheckSpreadsheet
         }
     }
 
-    [SKFunction, Description("Checks that each tab contains the cells A1-A5 and B1-B5 with the correct values")]
-    public static string CheckCells(string filePath)
+    [KernelFunction, Description("Checks that each tab contains the cells A1-A5 and B1-B5 with the correct values")]
+    public static string CheckCells([Description("The file path to the spreadsheet")] string filePath)
     {
         try 
         {    
@@ -80,8 +79,8 @@ public class CheckSpreadsheet
         }
     }
 
-    [SKFunction, Description("Check that the cells B2-B5 add to less than 1 million and don't increase over 10% each quarter")]
-    public static string CheckValues(string filePath)
+    [KernelFunction, Description("Check that the cells B2-B5 add to less than 1 million and don't increase over 10% each quarter")]
+    public static string CheckValues([Description("The file path to the spreadsheet")] string filePath)
     {
         try
         {

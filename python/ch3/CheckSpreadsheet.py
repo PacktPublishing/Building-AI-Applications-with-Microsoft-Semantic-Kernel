@@ -1,14 +1,15 @@
 import openpyxl
-from semantic_kernel.skill_definition import sk_function
+from typing_extensions import Annotated
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 
 class CheckSpreadsheet:
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct tabs, 2024 and 2025",
         name="CheckTabs",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckTabs(self, path: str) -> str:
+    def CheckTabs(self, 
+                  path: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:
         try:
             workbook = openpyxl.load_workbook(path)
             sheet_names = workbook.sheetnames
@@ -19,12 +20,12 @@ class CheckSpreadsheet:
         except Exception as e:
             return f"Fail: an exception {e} occurred when trying to open the spreadsheet"
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct cells A1-B5",
         name="CheckCells",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckCells(self, path: str) -> str:
+    def CheckCells(self, 
+                 path: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:                   
         workbook = openpyxl.load_workbook(path)
         required_cells = {
             'A1': 'Quarter', 'B1': 'Budget',
@@ -40,12 +41,12 @@ class CheckSpreadsheet:
                     return "Fail: non-numeric inputs"
         return "Pass"
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct values, less than 1m per year and growth less than 10%",
         name="CheckValues",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckValues(self, path: str) -> str:
+    def CheckValues(self,
+                    path: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:
         workbook = openpyxl.load_workbook(path)
         years = ['2024', '2025']
         for year in years:
