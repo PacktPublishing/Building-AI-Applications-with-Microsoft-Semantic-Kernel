@@ -72,11 +72,6 @@ Console.WriteLine(result9);
 Console.WriteLine(result10);
 Console.WriteLine(result11);
 
-
-var docPath2 = $"{data_directory}/incorrect1/missing_experience.docx";
-var docPath3 = $"{data_directory}/incorrect2/missing_qualifications.docx";
-var docPath4 = $"{data_directory}/incorrect3/missing_implementation_detail.docx";
-
 var docPath1 = $"{data_directory}/correct/correct.docx";
 
 string result_experience = CheckDocumentPart(kernel, docPath1, "Experience", "CheckExperience").Result;

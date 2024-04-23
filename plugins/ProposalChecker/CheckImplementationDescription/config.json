@@ -16,7 +16,7 @@
         {
             "name": "input",
             "description": "Description of the implementation of the project",
-            "defaultValue": ""
+            "required": true
         }
     ]
 }

@@ -17,7 +17,7 @@
         {
             "name": "input",
             "description": "Description of an earlier project",
-            "defaultValue": ""
+            "required": true
         }
     ]
 }

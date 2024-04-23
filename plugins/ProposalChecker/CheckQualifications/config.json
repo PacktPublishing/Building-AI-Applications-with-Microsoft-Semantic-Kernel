@@ -16,7 +16,7 @@
         {
             "name": "input",
             "description": "Biographies of the project managers including their qualifications",
-            "defaultValue": ""
+            "required": true
         }
     ]
 }
