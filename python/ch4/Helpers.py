@@ -1,18 +1,18 @@
-from semantic_kernel.skill_definition import sk_function
+from typing_extensions import Annotated
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 import os
 
 class Helpers:
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the folder contains the expected files, an Excel spreadsheet and a Word document",
-        name="ProcessProposalFolder",
-        input_description="The file path to the folder containing the proposal files",
+        name="ProcessProposalFolder"
     )
-    def ProcessProposalFolder(self, folder_path: str) -> str:
+    def ProcessProposalFolder(self, input: Annotated[str, "The file path to the folder containing the proposal files"]) -> str:
         xlsx_count = 0
         docx_count = 0
 
-        for file in os.listdir(folder_path):
+        for file in os.listdir(input):
             if file.lower().endswith(".xlsx"):
                 xlsx_count += 1
             elif file.lower().endswith(".docx"):
@@ -20,7 +20,7 @@ class Helpers:
         
         return_value = "Error: unknown error"
         if xlsx_count == 1 and docx_count == 1:
-            return_value = folder_path
+            return_value = input
         elif xlsx_count == 0 and docx_count == 0:
             return_value = "Error: No files found"
         elif xlsx_count == 0:

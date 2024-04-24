@@ -1,17 +1,17 @@
-<IMPLEMENTATION>
+=====
  {{$input}}
-</IMPLEMENTATION>
+=====
 
-Check the contents of the text between the tags <IMPLEMENTATION> and </IMPLEMENTATION>.
+Check the contents of the text between the tags ===== and =====.
 
-If the contents are an error message, respond with the error message.
+If the contents are an error message, respond with the error message, including the word "Error:" at the beginning.
 
-Otherwise, the text between the tags <IMPLEMENTATION> and </IMPLEMENTATION> will contain 
+Otherwise, the text between the tags ===== and ===== will contain 
 a line starting with FolderPath and the rest of the field will contain 
 a description of a timeline for vaccine implementation.
 
 Think carefully about the following question:
-Ignoring the FolderPath line, does the the timeline contain dates?
+Ignoring the FolderPath line, does the timeline contain dates?
 
 If there are no dates listed, say "Error: No dates listed" .
 

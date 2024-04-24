@@ -1,12 +1,13 @@
-<EXPERIENCE>
+=====
  {{$input}}
-</EXPERIENCE>
+=====
 
-Check the contents of the text between the tags <EXPERIENCE> and </EXPERIENCE>.
 
-If the contents are an error message, respond with the error message.
+Check the contents of the text between the  ===== and =====. 
 
-Otherwise, the text between the tags <EXPERIENCE> and </EXPERIENCE> will contain a line starting with FolderPath and the rest of the field will contain a description of the teams experience.
+If the contents are an error message, respond with the error message, including the word "Error:" at the beginning.
+
+Otherwise, the text between the ===== and ===== will contain a line starting with FolderPath and the rest of the field will contain a description of the teams experience.
 
 Ignoring the FolderPath line, does the description of the teams experience 
 indicate they have enough experience to conduct a massive vaccination campaign in a new country?

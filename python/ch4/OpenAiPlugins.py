@@ -1,15 +1,15 @@
 from dotenv import load_dotenv
 from openai import OpenAI
 import os
-from semantic_kernel.skill_definition import sk_function
+from typing_extensions import Annotated
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 
 class Dalle3:
-    @sk_function(
+    @kernel_function(
         description="Generates an with DALL-E 3 model based on a prompt",
         name="ImageFromPrompt",
-        input_description="The prompt used to generate the image",
     )
-    def ImageFromPrompt(self, input: str) -> str:
+    def ImageFromPrompt(self, input: Annotated[str, "The prompt used to generate the image"] ) -> str:
         load_dotenv()
         client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 

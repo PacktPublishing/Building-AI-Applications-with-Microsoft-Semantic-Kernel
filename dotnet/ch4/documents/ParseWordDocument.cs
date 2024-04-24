@@ -51,16 +51,23 @@ public class ParseWordDocument
 
         using (WordprocessingDocument doc = WordprocessingDocument.Open(filePath, false))
         {
-            var body = doc.MainDocumentPart.Document.Body;
-            var paras = body.Elements<Paragraph>();
+            // 
+            var body = doc.MainDocumentPart?.Document.Body;
+            var paras = body?.Elements<Paragraph>();
 
             bool isExtracting = false;
             string extractedText = "";
+
+            if (paras == null)
+            {
+                return $"Error: Missing section {heading}";
+            }
 
             foreach (var para in paras)
             {
                 if (para.ParagraphProperties != null &&
                     para.ParagraphProperties.ParagraphStyleId != null &&
+                    para.ParagraphProperties.ParagraphStyleId.Val != null &&
                     para.ParagraphProperties.ParagraphStyleId.Val.Value == "Heading1" &&
                     para.InnerText.Trim().Equals(heading, StringComparison.OrdinalIgnoreCase))
                 {
@@ -71,7 +78,8 @@ public class ParseWordDocument
                 if (isExtracting)
                 {
                     if (para.ParagraphProperties != null &&
-                        para.ParagraphProperties.ParagraphStyleId != null &&
+                    para.ParagraphProperties.ParagraphStyleId != null &&
+                    para.ParagraphProperties.ParagraphStyleId.Val != null &&
                         para.ParagraphProperties.ParagraphStyleId.Val.Value == "Heading1")
                     {
                         break;

@@ -3,6 +3,7 @@ Below, there's a list of clues about an animal.
 {{$input}}
 
 From thes clues above, guess what animal it is. 
+
 Provide your answer in a single line, containing just the name of the animal.
 
 

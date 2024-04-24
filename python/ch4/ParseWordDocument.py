@@ -1,53 +1,57 @@
 from docx import Document
-from semantic_kernel.skill_definition import sk_function
+from typing_extensions import Annotated
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 import os
 
 class ParseWordDocument:
 
-    @sk_function(
+    @kernel_function(
         description="Extracts information about the team",
         name="ExtractTeam",
-        input_description="The file path to the Word document",
     )
-    def ExtractTeam(self, folder_path: str) -> str:
-        if folder_path.startswith("Error"):
-            return folder_path
-        doc_path = self.get_first_docx_file(folder_path)
+    def ExtractTeam(self,
+                    input: Annotated[str, "The path of the file to extract the text from"]) ->  \
+                    Annotated[str, "The extracted text about the team description text"]:                    
+        if input.startswith("Error"):
+            return input
+        doc_path = self.get_first_docx_file(input)
         text = self.ExtractTextUnderHeading(doc_path, 'Team')
-        return f"FolderPath: {folder_path}\n{text}"
+        return f"FolderPath: {input}\n{text}"
 
-    @sk_function(
+    @kernel_function(
         description="Extracts information about the team's experience on their previous project",
         name="ExtractExperience",
-        input_description="The file path to the Word document",
     )
-    def ExtractExperience(self, folder_path: str) -> str:
-        if folder_path.startswith("Error"):
-            return folder_path
-        doc_path = self.get_first_docx_file(folder_path)
+    def ExtractExperience(self,
+                              input: Annotated[str, "The path of the file to extract the text from"]) ->  \
+                              Annotated[str, "The extracted experience text"]:                          
+        if input.startswith("Error"):
+            return input
+        doc_path = self.get_first_docx_file(input)
         text =  self.ExtractTextUnderHeading(doc_path, 'Experience')
-        return f"FolderPath: {folder_path}\n{text}"
+        return f"FolderPath: {input}\n{text}"
     
-    @sk_function(
+    @kernel_function(
         description="Extracts information about the implementation plan being proposed",
         name="ExtractImplementation",
-        input_description="The file path to the Word document",
     )
-    def ExtractImplementation(self, folder_path: str) -> str:
-        if folder_path.startswith("Error"):
-            return folder_path
-        doc_path = self.get_first_docx_file(folder_path)
+    def ExtractImplementation(self, 
+                              input: Annotated[str, "The path of the file to extract the text from"]) ->  \
+                              Annotated[str, "The extracted implementation text"]:
+        if input.startswith("Error"):
+            return input
+        doc_path = self.get_first_docx_file(input)
         text = self.ExtractTextUnderHeading(doc_path, 'Implementation')
-        return f"FolderPath: {folder_path}\n{text}"
+        return f"FolderPath: {input}\n{text}"
 
-    def get_first_docx_file(self, folder_path: str) -> str:
-        if folder_path.startswith("FolderPath"):
-            folder_path = folder_path.split(":")[1].strip()
-        if folder_path.startswith("Error"):
-            return folder_path
-        for file in os.listdir(folder_path):
+    def get_first_docx_file(self, input: str) -> str:
+        if input.startswith("FolderPath"):
+            input = input.split(":")[1].strip()
+        if input.startswith("Error"):
+            return input
+        for file in os.listdir(input):
             if file.endswith(".docx"):
-                return os.path.join(folder_path, file)
+                return os.path.join(input, file)
 
     def ExtractTextUnderHeading(self, doc_path: str, target_heading: str) -> str:
         doc = Document(doc_path)

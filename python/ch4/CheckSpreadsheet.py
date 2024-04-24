@@ -1,37 +1,38 @@
 import openpyxl
-from semantic_kernel.skill_definition import sk_function
+from typing_extensions import Annotated
+from semantic_kernel.functions.kernel_function_decorator import kernel_function
 import glob
 
 class CheckSpreadsheet:
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct tabs, 2024 and 2025",
         name="CheckTabs",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckTabs(self, path: str) -> str:
-        if path.startswith("Error"):
-            return path
+    def CheckTabs(self,
+                  input: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:
+        if input.startswith("Error"):
+            return input
         try:
-            filePath = self.GetExcelFile(path)
+            filePath = self.GetExcelFile(input)
             workbook = openpyxl.load_workbook(filePath)
             sheet_names = workbook.sheetnames
             if sheet_names == ['2024', '2025']:
-                return path
+                return input
             else:
                 return "Error: the spreadsheet does not contain the correct tabs"
         except Exception as e:
             return f"Error: an exception {e} occurred when trying to open the spreadsheet"
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct cells A1-B5",
         name="CheckCells",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckCells(self, path: str) -> str:
-        if path.startswith("Error"):
-            return path
-        filePath = self.GetExcelFile(path)
+    def CheckCells(self,
+                 input: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:
+        if input.startswith("Error"):
+            return input
+        filePath = self.GetExcelFile(input)
         workbook = openpyxl.load_workbook(filePath)
         required_cells = {
             'A1': 'Quarter', 'B1': 'Budget',
@@ -45,17 +46,17 @@ class CheckSpreadsheet:
             for row in range(2, 6):
                 if not isinstance(sheet[f'B{row}'].value, (int, float)):
                     return "Error: non-numeric inputs"
-        return path
+        return input
 
-    @sk_function(
+    @kernel_function(
         description="Checks that the spreadsheet contains the correct values, less than 1m per year and growth less than 10%",
         name="CheckValues",
-        input_description="The file path to the spreadsheet",
     )
-    def CheckValues(self, path: str) -> str:
-        if path.startswith("Error"):
-            return path
-        filePath = self.GetExcelFile(path)
+    def CheckValues(self,
+                    input: Annotated[str, "The path to the spreadsheet"]) -> Annotated[str, "The result of the check"]:
+        if input.startswith("Error"):
+            return input
+        filePath = self.GetExcelFile(input)
         workbook = openpyxl.load_workbook(filePath)
         years = ['2024', '2025']
         for year in years:
@@ -71,7 +72,7 @@ class CheckSpreadsheet:
             for i in range(len(values) - 1):
                 if values[i + 1] > values[i] * 1.10:
                     return f"Error: More than 10% growth found from B{i+2} to B{i+3} in sheet {year}."
-        return path
+        return input
     
     def GetExcelFile(self, path: str) -> str:
         if path.startswith("Error"):

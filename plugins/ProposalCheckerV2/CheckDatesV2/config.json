@@ -2,19 +2,21 @@
     "schema": 1,
     "type": "completion",
     "description": "Check whether the project description includes reasonable dates in their project implementation",
-    "completion": {
-        "temperature": 0.8,
-        "number_of_responses": 1,
-        "top_p": 1,
-        "max_tokens": 2000,
-        "presence_penalty": 0.0,
-       "frequency_penalty": 0.0
-       },
-       "input": {
-     "parameters": [{
-      "name": "input",
-      "description": "Description of the implementation of the project",
-      "defaultValue": ""
-     }]
-    }
+    "execution_settings": {
+        "default": {
+            "temperature": 0.8,
+            "number_of_responses": 1,
+            "top_p": 1,
+            "max_tokens": 4000,
+            "presence_penalty": 0.0,
+            "frequency_penalty": 0.0
+        }
+    },
+    "input_variables": [
+        {
+            "name": "input",
+            "description": "Description of the implementation of the project",
+            "required": true
+        }
+    ]
 }

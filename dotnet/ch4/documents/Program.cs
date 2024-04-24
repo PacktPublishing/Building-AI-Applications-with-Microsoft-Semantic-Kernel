@@ -48,7 +48,7 @@ foreach (var proposal in proposals)
 
     Console.WriteLine($"Processing {absolutePath}");
     KernelArguments context = new() { { "folderPath", absolutePath } };
-    string result = await pipeline.InvokeAsync<string>(kernel, context);
+    string ?result = await pipeline.InvokeAsync<string>(kernel, context); 
     Console.WriteLine(result);
     if (result == absolutePath) 
     {
