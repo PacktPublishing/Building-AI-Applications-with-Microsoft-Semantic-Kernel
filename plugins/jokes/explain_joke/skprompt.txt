@@ -1,7 +1,7 @@
 You are given the following joke:
 {{$input}}
 
-First, tell the joke.
+Explain the joke.
 
-Then, explain the joke.
+
 
