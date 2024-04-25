@@ -39,22 +39,21 @@ async def main():
 
     search_client = SearchClient(ais_service_endpoint, ais_index_name, credential=credential)
     emb = await generate_embeddings(kernel, query_string)
-    vector_query = VectorizedQuery(vector=emb, k_nearest_neighbors=5, exhaustive=True, fields="abstract_vector")
+    vector_query = VectorizedQuery(vector=emb, k_nearest_neighbors=5, exhaustive=True, fields="Embedding")
         
     results = search_client.search(  
         search_text=None,  
         vector_queries= [vector_query],
-        select=["id", "authors", "title", "abstract"],
+        select=["Id", "Text", "Description"]
 
     )  
     
     pd_results = []
     for result in results:
         d = {
-            "id": result['id'],
-            "authors": result['authors'],
-            "title": result['title'],
-            "abstract": result['abstract'], 
+            "id": result['Id'],
+            "title": result['Description'],
+            "abstract": result['Text'], 
             "score": f"{result['@search.score']:.2f}"
         }
         pd_results.append(d)

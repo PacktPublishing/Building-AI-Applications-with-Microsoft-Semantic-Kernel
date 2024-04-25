@@ -2,7 +2,6 @@ import asyncio
 import semantic_kernel as sk
 import semantic_kernel.connectors.ai.open_ai as sk_oai
 
-
 from azure.core.credentials import AzureKeyCredential  
 from azure.search.documents import SearchClient  
 from azure.search.documents.models import VectorizedQuery
@@ -34,25 +33,23 @@ async def summarize_documents(kernel: sk.Kernel, df: pd.DataFrame) -> str:
     doc_list += "Here are the top 5 documents that are most similar to your query:\n\n"
     for key, row in df.iterrows():
         i = i + 1
-        id = row["id"].replace("_", ".")
+        id = row["Id"].replace("_", ".")
         doc_list += f"{i}. "
-        doc_list += f"{row['title']} - "
+        doc_list += f"{row['Description']} - "
         doc_list += f"https://arxiv.org/abs/{id}\n"        
 
     a = 0 
     abstracts = ""
     for key, row in df.iterrows():
         a = a + 1
-        abstracts += f"\n\n{a}. {row['abstract']}\n"
+        abstracts += f"\n\n{a}. {row['Text']}\n"
 
     f = kernel.import_plugin_from_prompt_directory(".", "prompts")    
     summary = await kernel.invoke(f["summarize_abstracts"], input=abstracts)
 
     response = f"{doc_list}\n\n{summary}"
     return response
-
-
-    
+  
 
 async def main():
     kernel = create_kernel()
@@ -67,21 +64,21 @@ async def main():
 
     search_client = SearchClient(ais_service_endpoint, ais_index_name, credential=credential)
     emb = await generate_embeddings(kernel, query_string)
-    vector_query = VectorizedQuery(vector=emb, k_nearest_neighbors=5, exhaustive=True, fields="abstract_vector")
+    vector_query = VectorizedQuery(vector=emb, k_nearest_neighbors=5, exhaustive=True, fields="Embedding")
         
     results = search_client.search(  
         search_text=None,  
         vector_queries= [vector_query],
-        select=["id", "authors", "title", "abstract"],
+        select=["Id", "Text", "Description"]
     )  
+    
     
     pd_results = []
     for result in results:
         d = {
-            "id": result['id'],
-            "authors": result['authors'],
-            "title": result['title'],
-            "abstract": result['abstract'], 
+            "Id": result['Id'],
+            "Description": result['Description'],
+            "Text": result['Text'], 
             "score": f"{result['@search.score']:.2f}"
         }
         pd_results.append(d)

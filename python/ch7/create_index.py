@@ -32,11 +32,13 @@ def main() -> None:
     index_client.delete_index(index_name)
     
     fields = [
-        SimpleField(name="id", type=SearchFieldDataType.String, key=True, sortable=True, filterable=True, facetable=True),
-        SearchableField(name="authors", type=SearchFieldDataType.String),
-        SearchableField(name="title", type=SearchFieldDataType.String),
-        SearchableField(name="abstract", type=SearchFieldDataType.String),
-        SearchField(name="abstract_vector", type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
+        SimpleField(name="Id", type=SearchFieldDataType.String, key=True, sortable=True, filterable=True, facetable=True),
+        SearchableField(name="AdditionalMetadata", type=SearchFieldDataType.String),
+        SearchableField(name="Text", type=SearchFieldDataType.String),
+        SearchableField(name="Description", type=SearchFieldDataType.String),
+        SearchableField(name="ExternalSourceName", type=SearchFieldDataType.String),
+        SimpleField(name="IsReference", type=SearchFieldDataType.Boolean),
+        SearchField(name="Embedding", type=SearchFieldDataType.Collection(SearchFieldDataType.Single),
                     searchable=True, vector_search_dimensions=1536, vector_search_profile_name="myHnswProfile"),
     ]
 

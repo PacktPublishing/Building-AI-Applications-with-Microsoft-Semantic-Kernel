@@ -1,0 +1,23 @@
+{
+    "schema": 1,
+    "type": "completion",
+    "description": "Summarize abstracts of academic papers",
+    "execution_settings": {
+       "default": {
+         "max_tokens": 4000,
+         "temperature": 0.5
+       },
+       "gpt-4-turbo": {
+         "model_id": "gpt-4-preview",
+         "max_tokens": 4000,
+         "temperature": 0.5
+       }
+     },
+    "input_variables": [
+       {
+         "name": "input",
+         "description": "A numbered list of abstracts to summarize.",
+         "required": true
+       }
+    ]
+}

@@ -22,7 +22,7 @@ async def main():
     index_name = os.getenv("ARXIV_SEARCH_INDEX_NAME")
     service_name = os.getenv("ARXIV_SEARCH_SERVICE_NAME")
     service_endpoint = f"https://{service_name}.search.windows.net/"
-    admin_key = os.getenv("ARXIV_SEARCH_ADMIN_KEY")
+    admin_key = os.getenv("ARXIV_SEARCH_ADMIN_KEY") 
     credential = AzureKeyCredential(admin_key)
 
     # Create a search index
@@ -40,7 +40,7 @@ async def main():
         if count % 1000 == 0:
             print(f"Processing record {count}")
         
-        id = str(item["id"])
+        id = str(item["Id"])
         id = id.replace(".", "_")
         embeddings = await generate_embeddings(kernel, item["abstract"])
         # convert embeddings to a list of floats
@@ -48,11 +48,10 @@ async def main():
 
         document = {
             "@search.action": "upload",
-            "id": id,
-            "authors": item["authors"],
-            "title": item["title"],
-            "abstract": item["abstract"],
-            "abstract_vector": embeddings
+            "Id": id,
+            "Text": item["title"],
+            "Description": item["abstract"],
+            "Embedding": embeddings
         }
         documents.append(document)
 
