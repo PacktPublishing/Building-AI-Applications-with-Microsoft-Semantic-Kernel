@@ -1,0 +1,6 @@
+@SkHomeAutomation_HostAddress = http://localhost:5021
+
+GET {{SkHomeAutomation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
