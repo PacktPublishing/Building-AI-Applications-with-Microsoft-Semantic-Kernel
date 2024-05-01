@@ -36,19 +36,19 @@ async def run_document_check(path, function, target_heading, semantic_function):
 
 async def main():
     data_path = "../../data/proposals"
-    await run_spreadsheet_check(f"{data_path}/correct/correct.xlsx", "CheckTabs")
-    await run_spreadsheet_check(f"{data_path}/incorrect01/incorrect_template.xlsx", "CheckTabs")
-    await run_spreadsheet_check(f"{data_path}/incorrect02/over_budget.xlsx", "CheckTabs")
-    await run_spreadsheet_check(f"{data_path}/incorrect03/fast_increase.xlsx", "CheckTabs")
-    
-    await run_spreadsheet_check(f"{data_path}/correct/correct.xlsx", "CheckCells")
-    await run_spreadsheet_check(f"{data_path}/incorrect04/incorrect_cells.xlsx", "CheckCells")
-    await run_spreadsheet_check(f"{data_path}/incorrect02/over_budget.xlsx", "CheckCells")
-    await run_spreadsheet_check(f"{data_path}/incorrect03/fast_increase.xlsx", "CheckCells")
-
     await run_spreadsheet_check(f"{data_path}/correct/correct.xlsx", "CheckValues")
+    await run_spreadsheet_check(f"{data_path}/incorrect01/incorrect_template.xlsx", "CheckTabs")
     await run_spreadsheet_check(f"{data_path}/incorrect02/over_budget.xlsx", "CheckValues")
     await run_spreadsheet_check(f"{data_path}/incorrect03/fast_increase.xlsx", "CheckValues")
+    
+    # await run_spreadsheet_check(f"{data_path}/correct/correct.xlsx", "CheckCells")
+    # await run_spreadsheet_check(f"{data_path}/incorrect04/incorrect_cells.xlsx", "CheckCells")
+    # await run_spreadsheet_check(f"{data_path}/incorrect02/over_budget.xlsx", "CheckCells")
+    # await run_spreadsheet_check(f"{data_path}/incorrect03/fast_increase.xlsx", "CheckCells")
+
+    # await run_spreadsheet_check(f"{data_path}/correct/correct.xlsx", "CheckValues")
+    # await run_spreadsheet_check(f"{data_path}/incorrect02/over_budget.xlsx", "CheckValues")
+    # await run_spreadsheet_check(f"{data_path}/incorrect03/fast_increase.xlsx", "CheckValues")
 
     print("Word document checks:")
 

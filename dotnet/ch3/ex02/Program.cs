@@ -39,38 +39,38 @@ string data_directory = Path.Combine(Directory.GetCurrentDirectory(), "..", ".."
 
 
 // Check for tabs
-var result1 = await kernel.InvokeAsync(checkerPlugin["CheckTabs"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
+var result1 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
 var result2 = await kernel.InvokeAsync(checkerPlugin["CheckTabs"], new() {["filePath"] = $"{data_directory}/incorrect01/incorrect_template.xlsx"});
-var result3 = await kernel.InvokeAsync(checkerPlugin["CheckTabs"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
-var result4 = await kernel.InvokeAsync(checkerPlugin["CheckTabs"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
+var result3 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
+var result4 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
 
-Console.WriteLine("Checking whether the correct tabs are present in the spreadsheet:");
-Console.WriteLine(result1);
-Console.WriteLine(result2);
-Console.WriteLine(result3);
-Console.WriteLine(result4);
+// Console.WriteLine("Checking whether the correct tabs are present in the spreadsheet:");
+// Console.WriteLine(result1);
+// Console.WriteLine(result2);
+// Console.WriteLine(result3);
+// Console.WriteLine(result4);
 
-// Check for cells
-var result5 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
-var result6 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect01/incorrect_template.xlsx"});
-var result7 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
-var result8 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
+// // Check for cells
+// var result5 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
+// var result6 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect01/incorrect_template.xlsx"});
+// var result7 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
+// var result8 = await kernel.InvokeAsync(checkerPlugin["CheckCells"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
 
-Console.WriteLine("Checking whether the correct cells are present in the spreadsheet:");
-Console.WriteLine(result5);
-Console.WriteLine(result6);
-Console.WriteLine(result7);
-Console.WriteLine(result8);
+// Console.WriteLine("Checking whether the correct cells are present in the spreadsheet:");
+// Console.WriteLine(result5);
+// Console.WriteLine(result6);
+// Console.WriteLine(result7);
+// Console.WriteLine(result8);
 
-// Check values
-var result9 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
-var result10 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
-var result11 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
+// // Check values
+// var result9 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/correct/correct.xlsx"});
+// var result10 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect02/over_budget.xlsx"});
+// var result11 = await kernel.InvokeAsync(checkerPlugin["CheckValues"], new() {["filePath"] = $"{data_directory}/incorrect03/fast_increase.xlsx"});
 
-Console.WriteLine("Checking whether the correct values are present in the spreadsheet:");
-Console.WriteLine(result9);
-Console.WriteLine(result10);
-Console.WriteLine(result11);
+// Console.WriteLine("Checking whether the correct values are present in the spreadsheet:");
+// Console.WriteLine(result9);
+// Console.WriteLine(result10);
+// Console.WriteLine(result11);
 
 var docPath1 = $"{data_directory}/correct/correct.docx";
 
