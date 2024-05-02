@@ -1,7 +1,7 @@
 import asyncio
 import semantic_kernel as sk
 from semantic_kernel.connectors.ai.open_ai import OpenAIChatCompletion, OpenAIChatPromptExecutionSettings
-from semantic_kernel.functions import KernelArguments, KernelFunction
+from semantic_kernel.functions import KernelFunction
 from semantic_kernel.prompt_template import PromptTemplateConfig, InputVariable
 from semantic_kernel.core_plugins import ConversationSummaryPlugin
 from semantic_kernel.contents.chat_history import ChatHistory

@@ -47,8 +47,8 @@ async def main():
     memory = SemanticTextMemory(storage=VolatileMemoryStore(), embeddings_generator=emb)
     kernel.add_plugin(TextMemoryPlugin(memory), "TextMemoryPlugin")
 
-    await add_to_memory(memory, id="info1", text="My favorite city is Paris")   
-    await add_to_memory(memory, id="info2", text="My favorite activity is visiting museums")
+    await add_to_memory(memory, id="1", text="My favorite city is Paris")   
+    await add_to_memory(memory, id="2", text="My favorite activity is visiting museums")
 
     f = await tour(kernel)
 
