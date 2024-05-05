@@ -12,7 +12,7 @@ async def main():
     kernel.add_service(gpt35)
 
     dalle3 = kernel.add_plugin(Dalle3(), "Dalle3")
-    animal_str = "A painting of a cat sitting in a sofa in the impressionist style"
+    animal_str = "A painting of a cat sitting on a sofa in the impressionist style"
 
     animal_pic_url = await kernel.invoke(dalle3['ImageFromPrompt'], KernelArguments(input = animal_str))
     print(animal_pic_url)
