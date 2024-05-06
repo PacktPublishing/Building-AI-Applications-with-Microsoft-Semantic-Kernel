@@ -8,7 +8,7 @@ Create an itinerary of up to {{$n_attractions}} must-see attractions for me to v
 The attractions should be listed in the following format:
 
 - Attraction name: [name]
-- What is the best thing to see there: [one sentence description description]
+- What is the best thing to see there: [one sentence description]
 
 Your whole answer should be less than 300 words.
 
