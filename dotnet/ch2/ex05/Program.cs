@@ -17,8 +17,8 @@ var problem = "When I was 6 my sister was half my age. Now I'm 70. How old is my
 // create a list of integers
 var results = new List<int>();
 
-// call the program 5 times
-for (int i = 0; i < 5; i++)
+// call the program 7 times
+for (int i = 0; i < 7; i++)
 {
     var chatFunctionVariables1 = new KernelArguments()
     {
@@ -48,4 +48,11 @@ var mostCommonResult = results.GroupBy(x => x)
     .First()
     .Key;
 
-Console.WriteLine($"Your sister's age is {mostCommonResult}");
+Console.WriteLine("Responses: ");
+// print each result, comma separated
+foreach (var result in results)
+{
+    Console.Write($"{result}, ");
+}
+
+Console.WriteLine($"\nFinal answer: {mostCommonResult}");
