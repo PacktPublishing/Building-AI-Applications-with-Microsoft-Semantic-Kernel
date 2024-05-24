@@ -25,7 +25,7 @@ alt="https://www.packtpub.com/" border="5" /></a>
 
 
 ## Instructions and Navigations
-All of the code is organized into folders. For example, Chapter02.
+All of the code is organized into folders. For example, ch2.
 
 The code will look like the following:
 ```
