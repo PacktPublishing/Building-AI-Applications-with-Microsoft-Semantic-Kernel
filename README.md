@@ -54,6 +54,17 @@ With the following software and hardware list you can run all code files present
 
 * Modern Data Architecture on AWS [[Packt]](https://www.packtpub.com/product/modern-data-architecture-on-aws/9781801813396) [[Amazon]](https://www.amazon.com/dp/1801813396)
 
+## Errata
+* Page 33, Last code snippet
+  ```
+  dotnet add package Microsoft.SemanticKernel.
+  s.Handlebars --version 1.0.1-preview
+  ```
+  _should be_
+  ```
+  dotnet add package Microsoft.SemanticKernel.planners.Handlebars --version 1.0.1-preview
+  ```
+
 ## Get to Know the Author
 **Lucas A. Meyer**
 is a Computer Scientist and Financial Economist with over two decades of experience in technology. Lucas joined Microsoft in 2002 to work with databases in Finance, joined Amazon in 2020 to work with detection and prevention, and returned to Microsoft in 2022 as a Principal Research Scientist in the Microsoft&rsquo;s AI for Good Lab, where he works with Large Language Models (LLMs) and the Microsoft Semantic Kernel daily.
